@@ -1,9 +1,25 @@
+## Customize the test machine
 machine:
   environment:
-    DATABASE_URL: 'postgres://ubuntu@127.0.0.1:5432/circle_test'
-    REDIS_URL: 'redis://127.0.0.1:6379/1'
-    TOSHI_ENV: 'test'
+    DATABASE_URL: postgres://ubuntu@127.0.0.1:5432/circle_test
+    REDIS_URL: redis://127.0.0.1:6379/1
+    TOSHI_ENV: test
 
+## Customize checkout
+checkout:
+  post:
+    - git submodule sync
+    - git submodule update --init # use submodules
+
+## Customize database setup
 database:
   post:
     - bundle exec rake db:create
+
+test:
+  post:
+    - bundle exec rspec --color --require spec_helper spec --format progress:
+      environment:
+        RAILS_ENV=test
+        RACK_ENV=test
+      timeout: 600
