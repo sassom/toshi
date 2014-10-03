@@ -15,3 +15,11 @@ checkout:
 database:
   post:
     - bundle exec rake db:create
+
+## Customize test
+test:
+  override:
+    - bundle exec rspec --color --require spec_helper spec --format progress:
+      environment:
+        RAILS_ENV=test
+        RACK_ENV=test
