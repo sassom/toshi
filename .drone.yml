@@ -1,0 +1,18 @@
+image: ruby2.0.0
+env:
+  - DATABASE_URL=postgres://postgres@127.0.0.1:5432/drone_test
+  - REDIS_URL=redis://127.0.0.1:6379/1
+  - TOSHI_ENV=test
+script:
+  - git submodule sync
+  - git submodule update --init
+  - psql -c 'create database drone_test;' -U postgres
+  - sudo chown ubuntu:ubuntu /tmp/bundler
+  - bundle install --path=/tmp/bundler
+  - bundle exec rake db:create
+  - bundle exec rspec --color --require spec_helper spec --format progress
+cache:
+  - /tmp/bundler
+services:
+  - postgres
+  - redis
