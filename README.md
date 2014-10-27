@@ -160,3 +160,4 @@ You can run the test suite for Toshi as follows:
 2. Run existing tests with `bundle exec rspec` and add a new test for your changes if applicable.
 3. Commit your changes and push to your fork `git push origin master`
 4. Create a new pull request and submit it back to the project.
+
